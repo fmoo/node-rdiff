@@ -9,7 +9,6 @@
 
 #include <string>
 
-#include <librsync-config.h>
 #include <librsync.h>
 
 inline std::string get(const v8::Local<v8::Value> &value);

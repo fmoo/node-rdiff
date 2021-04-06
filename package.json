@@ -15,10 +15,10 @@
   "author": "Dhi Aurrahman <diorahman@rockybars.com>",
   "license": "MIT",
   "dependencies": {
-    "nan": "^2.2.0"
+    "nan": "^2.14.2"
   },
   "devDependencies": {
-    "mocha": "^2.2.5",
+    "mocha": "^8.3.2",
     "should": "^6.0.3"
   },
   "directories": {

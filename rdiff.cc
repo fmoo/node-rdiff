@@ -24,7 +24,7 @@ class GenerateSignatureWorker : public Nan::AsyncWorker {
                 Nan::Null(),
                 Nan::New<Number>(1)
             };
-            callback->Call(2, argv);
+            callback->Call(2, argv, async_resource);
         }
 
         void HandleErrorCallback() {
@@ -32,7 +32,7 @@ class GenerateSignatureWorker : public Nan::AsyncWorker {
             v8::Local<v8::Value> argv[] = {
                 Nan::Error(errmsg)
             };
-            callback->Call(1, argv);
+            callback->Call(1, argv, async_resource);
         }
 
     private:
@@ -63,7 +63,7 @@ class GenerateDeltaWorker : public Nan::AsyncWorker {
                 Nan::Null(),
                 Nan::New<Number>(1)
             };
-            callback->Call(2, argv);
+            callback->Call(2, argv, async_resource);
         }
 
         void HandleErrorCallback() {
@@ -71,7 +71,7 @@ class GenerateDeltaWorker : public Nan::AsyncWorker {
             v8::Local<v8::Value> argv[] = {
                 Nan::Error(errmsg)
             };
-            callback->Call(1, argv);
+            callback->Call(1, argv, async_resource);
         }
 
     private:
@@ -103,7 +103,7 @@ class PatchWorker : public Nan::AsyncWorker {
                 Nan::Null(),
                 Nan::New<Number>(1)
             };
-            callback->Call(2, argv);
+            callback->Call(2, argv, async_resource);
         }
 
         void HandleErrorCallback() {
@@ -111,7 +111,7 @@ class PatchWorker : public Nan::AsyncWorker {
             v8::Local<v8::Value> argv[] = {
                 Nan::Error(errmsg)
             };
-            callback->Call(1, argv);
+            callback->Call(1, argv, async_resource);
         }
 
     private:
@@ -285,5 +285,6 @@ rs_result patch(const char* basis_name, const char *in, const char *out) {
 }
 
 inline std::string get(const v8::Local<v8::Value> &value) {
-    return std::string(*v8::String::Utf8Value(value));
+    v8::Isolate* isolate = v8::Isolate::GetCurrent();
+    return std::string(*v8::String::Utf8Value(isolate, value));
 }
