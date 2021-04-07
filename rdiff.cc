@@ -209,7 +209,7 @@ FILE * rs_file_open(const char *filename, const char *mode) {
     return f;
 }
 
-int rs_file_close (FILE * f) {
+int _rdiff_rs_file_close (FILE * f) {
     if ((f == stdin) || (f == stdout)) return 0;
     return fclose(f);
 }
@@ -228,8 +228,8 @@ rs_result signature(const char *in, const char *out) {
     result = rs_sig_file(basis_file, sig_file, block_len, (size_t) 8, RS_MD4_SIG_MAGIC, &stats);
 #endif
 
-    rs_file_close(sig_file);
-    rs_file_close(basis_file);
+    _rdiff_rs_file_close(sig_file);
+    _rdiff_rs_file_close(basis_file);
 
     if (result != RS_DONE) {
         return result;
@@ -258,9 +258,9 @@ rs_result delta(const char *sig_name, const char *in, const char *out) {
 
     rs_free_sumset(sumset);
 
-    rs_file_close(delta_file);
-    rs_file_close(new_file);
-    rs_file_close(sig_file);
+    _rdiff_rs_file_close(delta_file);
+    _rdiff_rs_file_close(new_file);
+    _rdiff_rs_file_close(sig_file);
 
     return result;
 }
@@ -277,9 +277,9 @@ rs_result patch(const char* basis_name, const char *in, const char *out) {
 
     result = rs_patch_file(basis_file, delta_file, new_file, &stats);
 
-    rs_file_close(new_file);
-    rs_file_close(delta_file);
-    rs_file_close(basis_file);
+    _rdiff_rs_file_close(new_file);
+    _rdiff_rs_file_close(delta_file);
+    _rdiff_rs_file_close(basis_file);
 
     return result;
 }
