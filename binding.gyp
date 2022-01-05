@@ -7,9 +7,10 @@
       ],
       "library_dirs": [
         "<(module_root_dir)/../librsync/dist/lib",
+        "<(module_root_dir)/../librsync/dist/lib64",
       ],
       "libraries": [
-        "rsync.lib",
+        "-lrsync",
       ],
       'defines': ['LIBRSYNC_STATIC_DEFINE'],
       "include_dirs" : [
